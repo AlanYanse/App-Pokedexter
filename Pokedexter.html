@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pokedexter con JQuery</title>
+	<link rel= "stylesheet" href= "estilos.css"></link>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script>
+	
+		$(document).ready(function(){
+		
+			
+		
+			$("#btn_get").click(function(e){
+			
+				e.preventDefault(); // Este método funciona cuando pasan algunas cosas raras.
+				
+			
+				var idPokemon = $("#id_pokemon").val();
+				
+					$("#msg").empty();
+							
+					$.get("https://pokeapi.co/api/v2/pokemon/" + idPokemon , function(data, status){
+					
+						
+						
+						$("#pokemon_name").val(data.name);
+					
+						$("#imagen").attr("src", data.sprites.front_default);
+						
+						var pokemonAbilities = data.abilities;
+						
+						console.log(pokemonAbilities);
+						
+						$.each(pokemonAbilities, function(index, element){
+						
+							console.log(element.ability.name);
+							
+							$("#msg").append(element.ability.name + " , ");
+						});
+				
+					});
+				
+							
+			});
+		
+		});
+	
+	</script>
+  </head>
+  <body>
+	<!---<button id= "btn_get">Obtener</button>---->
+	
+		<form action="" "method="" >
+						
+		 <ul>
+		  <li>
+			<img src="logo.png" id="logo" alt="">
+		  </li>
+		  <li>
+			<label for="id_pokemon">ID del Pokemon:</label>
+			<input type="number" id="id_pokemon" name="user_name" autocomplete= "off">
+		  </li>
+		  <li>
+			<label for="pokemon_name">Pokemon name:</label>
+			<input type="text" id="pokemon_name">
+		  </li>
+		  <li>
+			<img src="img_pokemon.jpg" alt="" id= "imagen">
+		  </li>
+		  <li>
+			<label for="msg">Abilities:</label>
+			<textarea id="msg" name="user_message"></textarea>
+		  </li>
+		  <li class="button">
+			  <button id= "btn_get">Obtener</button>
+		  </li>
+		  
+		 </ul>
+					
+		</form>
+	
+  </body>
+</html>
+
+
+
+
+
